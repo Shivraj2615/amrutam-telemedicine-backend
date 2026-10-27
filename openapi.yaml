@@ -280,3 +280,54 @@ paths:
           $ref: "#/components/responses/Forbidden"
         "409":
           $ref: "#/components/responses/Conflict"
+
+  /api/v1/admin/analytics:
+    get:
+      tags:
+        - Admin
+      summary: Get admin dashboard analytics
+      description: >
+        Returns aggregate patient, doctor, consultation, and availability
+        slot counts. Requires an authenticated admin account.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Analytics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      totalPatients:
+                        type: integer
+                        description: Active patient accounts
+                      totalDoctors:
+                        type: integer
+                        description: Total doctor records
+                      totalConsultations:
+                        type: integer
+                      consultationsByStatus:
+                        type: object
+                        additionalProperties:
+                          type: integer
+                      slots:
+                        type: object
+                        properties:
+                          available:
+                            type: integer
+                          booked:
+                            type: integer
+                          blocked:
+                            type: integer
+        "401":
+          description: Missing or invalid authentication token
+        "403":
+          description: Authenticated user is not an admin
+        "500":
+          description: Unexpected server error

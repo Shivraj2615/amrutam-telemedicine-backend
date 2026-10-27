@@ -11,6 +11,7 @@ const doctorRoutes = require("./routes/doctor.routes");
 const consultationRoutes = require("./routes/consultation.routes");
 const prescriptionRoutes = require("./routes/prescription.routes");
 const docsRoutes = require("./routes/docs.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -86,6 +87,7 @@ app.use("/api/v1/doctors", doctorRoutes);
 app.use("/api/v1/consultations", consultationRoutes);
 app.use("/api/v1/consultations", prescriptionRoutes);
 app.use("/api-docs", docsRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
